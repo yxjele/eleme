@@ -1,7 +1,7 @@
 {
-  "name": "vue-ele",
+  "name": "yangxiaojie",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "dadada",
   "author": "yangxiaojiewangdan <1149265110@qq.com>",
   "private": true,
   "scripts": {
@@ -10,8 +10,11 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.17.1",
+    "mint-ui": "^2.2.13",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "webpack-dev-server": "^2.11.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -42,7 +42,7 @@
   		</div>
   	</section>
   	<div class="tuijian">
-  		<h4 class="icon iconfont">&#xe699;为你推荐</h4>
+  		<h4 class="icon iconfont">&#xe60a;为你推荐</h4>
   		<p>你的口味我都懂得</p>
   	</div>
   	<div class="shuju">
@@ -85,10 +85,6 @@ export default {
 	},
 	methods:{
 		loadMore () {
-			Indicator.open({
-  		text: '加载中...',
-  		spinnerType: 'fading-circle'
-	});
 			axios.get("/restapi/shopping/v1/find/recommendation?offset=${this.offset + 20}&limit=20&rank_id=8a51a9675b5145afb1bab3c38db39cad&latitude=39.90469&longitude=116.407173")	
     .then((res)=>{
       console.log(res)

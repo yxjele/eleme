@@ -1,11 +1,14 @@
 <template>
   <div class="home">
+        <!-- header -->
       <div class="home-search">
+        <!-- 地图定位 -->
         <div class="map">
           <i class="iconfont">&#xe60d;</i>
           <span>{{district}}{{city}}政府</span>
           <i class="iconfont">&#xe600;</i>
         </div>
+        <!-- 搜索框 -->
         <div class="search">
             <a href="/">
               <i class="iconfont">&#xe618;</i>
@@ -13,6 +16,7 @@
             </a>
         </div>
       </div>
+      <!-- 轮播图 -->
       <mt-swipe class="swipe" :auto="8000">
             <mt-swipe-item>
               <a href="#"  v-for="item in list" class="gooding" :key="item.id">
@@ -26,10 +30,11 @@
                 {{item.name}}</a>
              </mt-swipe-item>
       </mt-swipe>
-      
+      <!-- 新用户专享图 -->
       <div class="home-img">
         <img src="https://fuss10.elemecdn.com/3/c8/45b2ec2855ed55d90c45bf9b07abbpng.png?imageMogr/format/webp/thumbnail/!710x178r/gravity/Center/crop/710x178/">
       </div>
+      <!-- 推荐商家列表 -->
       <div id="container"></div>
       <div class="lb-tj">
             <h3>推荐商家</h3>
@@ -40,6 +45,7 @@
               <div class="home-box">
                 <img :src="'http://fuss10.elemecdn.com/'+item.restaurant.image_path+'.'+ item.restaurant.image_path.split('').slice(32,).join('') +'?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/'">
               </div>
+              <!-- 商家推荐 -->
               <div class="zl">
                 <section>
                   <b class="b1">品牌</b>
@@ -50,7 +56,6 @@
                   <span>{{item.restaurant.rating}}</span>
                   <span>月销售1719单</span>
                   <span class="span2">{蜂鸟专送}</span>
-                  
                 </section>
                 <section>
                   <span>￥{{item.restaurant.piecewise_agent_fee.rules[0].price}}起送</span>
@@ -61,6 +66,7 @@
                 </section>
               </div>
             </dl>
+            <!-- 优惠 -->
             <dl class="dl2">
                 <section class="koubei">
                   <img src="https://fuss10.elemecdn.com/a/c1/24c767ffa7fd296d3e2d6f01798c6png.png?imageMogr/format/webp/thumbnail/!60x60r/gravity/Center/crop/60x60/">
@@ -159,9 +165,11 @@ export default {
       this.allLoaded = true;// if all data are loaded
       this.$refs.loadmore.onBottomLoaded();
     },
+    //无线下拉
     loadMore(){
       this.getData();
     },
+    //调用数据
     getData(){
        axios.get("/restapi/shopping/v3/restaurants?latitude=39.90469&longitude=116.407173&offset=${this.offset+8}&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&rank_id=&terminal=h5")
     .then((res)=>{

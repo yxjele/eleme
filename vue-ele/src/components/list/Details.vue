@@ -8,7 +8,7 @@
         </mt-header>
     </div>
     <div class="datails-img">
-      <img src="">
+      
     </div>
   </div>
 </template>

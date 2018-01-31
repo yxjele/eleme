@@ -7,7 +7,6 @@ export default {
   name: 'Order',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
   }
 }

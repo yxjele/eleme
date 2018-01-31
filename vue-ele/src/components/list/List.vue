@@ -97,7 +97,7 @@
     </div>
     <div class="from">
       <ul>
-        <li class="from-li" v-for="item in list">
+        <li class="from-li" v-for="item in list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
           <div class="from-left">         
             <img class="from-img" :src="'https://fuss10.elemecdn.com/'+item.restaurant.image_path+'.'+item.restaurant.image_path.split('').slice(32,).join('')+'?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/'">
           </div>
@@ -156,7 +156,9 @@
         </li>
       </ul>
     </div>
-    <div class="top"></div>
+    <div class="top">
+      <i class="back iconfont">&#xe61d;</i>
+    </div>
   </div>
 </template>
 
@@ -186,7 +188,24 @@ export default {
       this.list2 = res.data.average_costs;
       this.list3 = res.data.supports;
     })
-  }
+  },
+  // methods: {
+  //   loadMore() {
+  //     this.loading = true;
+  //     setTimeout(() => {
+  //       this.getData();
+  //       this.loading = false;
+  //     }, 2500);
+  //   },
+  //   getData(){
+  //     axios.get("/restapi/shopping/v3/restaurants?latitude=39.90469&longitude=116.407173&keyword=&offset=${this.offset+8}&limit=8&extras[]=activities&extras[]=tags&terminal=h5&brand_ids[]=&restaurant_category_ids[]=253&restaurant_category_ids[]=254&restaurant_category_ids[]=255&restaurant_category_ids[]=256&restaurant_category_ids[]=257&restaurant_category_ids[]=258&restaurant_category_ids[]=271&restaurant_category_ids[]=272&restaurant_category_ids[]=273&restaurant_category_ids[]=274&restaurant_category_ids[]=282&restaurant_category_ids[]=290&restaurant_category_ids[]=298")
+  //     .then((res)=>{
+  //       this.offset++;
+  //       this.list = this.list.concat(res.data.items);
+  //       this.loading = false;
+  //     })
+  //   }
+  // } 
 }
 </script>
 
@@ -483,5 +502,10 @@ export default {
     background: #fff;
     border: 1px solid #999;
     z-index: 100;
+  }
+  .back{
+    position: absolute;
+    line-height: .52rem;
+    margin-left: .17rem;
   }
 </style>

@@ -9,19 +9,22 @@
         </mt-header>
       </div>
       <div class="header-screen">
-        <a href="javascript:" class="screen-nav">综合排序</a>
+        <a href="javascript:" class="screen-nav" @click="display=!display">
+          <span>综合排序</span>
+          <span class="screen-last"></span>
+        </a>
         <a href="javascript:" class="screen-nav">距离最近</a>
         <a href="javascript:" class="screen-nav">
           <i class="Member iconfont">&#xe692;</i>
           <span>会员领红包</span>
         </a>
-        <a href="javascript:" class="screen-nav-more">
+        <a href="javascript:" class="screen-nav-more" @click="display1=!display1">
           <span>筛选</span>
           <i class="screen iconfont">&#xe67f;</i>
         </a>
       </div>
-      <section class="ranking">
-        <ul>
+      <section class="zuo" v-if="display" @click="show()">
+        <ul class="ranking">
           <li>
             <span>综合排名</span>
             <img class="ranking-img" src="../../assets/dui.png">
@@ -40,119 +43,122 @@
           </li>
         </ul>
       </section>
-      <section class="funnel">
-        <div class="morefilter">
-          <dl>
-            <dt>配送方式</dt>
-            <dd>
-              <div class="funnel-dd">
-                <img src="">
-                <span>蜂鸟专送</span>
-              </div>
-            </dd>
-          </dl>
-          <dl>
-            <dt>优惠活动</dt>
-            <dd>
-              <div class="morefilter-dd" v-for="ems in list1">
-                <span class="morefilter-span">
-                  {{ems.icon_name}}
-                </span>
-                <span>
-                  {{ems.name}}
-                </span>
-              </div>
-            </dd>
-          </dl>
-          <dl>
-            <dt>人均消费</dt>
-            <dd>
-              <div class="shopping" v-for="ats in list2">
-                <span class="shopping-span">
-                  {{ats.description}}
-                </span>
-              </div>
-            </dd>
-          </dl>
-          <dl>
-            <dt>商家属性（可多选）</dt>
-            <dd>
-              <div class="market" v-for="dd in list3">
-                <span class="market-span">
-                  {{dd.icon_name}}
-                </span>
-                <span>
-                  {{dd.name}}
-                </span>
-              </div>
-            </dd>
-          </dl>
-        </div>
-        <div class="btn">
-          <sapn class="btn-clear">清空</sapn>
-          <span class="btn-q">确定</span>
+      <section class="zuo1" v-if="display1" @click="hidden()">
+        <div class="funnel">
+          <div class="morefilter">
+            <dl>
+              <dt>配送方式</dt>
+              <dd>
+                <div class="funnel-dd">
+                  <img src="">
+                  <span>蜂鸟专送</span>
+                </div>
+              </dd>
+            </dl>
+            <dl>
+              <dt>优惠活动</dt>
+              <dd>
+                <div class="morefilter-dd" v-for="ems in list1">
+                  <span class="morefilter-span">
+                    {{ems.icon_name}}
+                  </span>
+                  <span>
+                    {{ems.name}}
+                  </span>
+                </div>
+              </dd>
+            </dl>
+            <dl>
+              <dt>人均消费</dt>
+              <dd>
+                <div class="shopping" v-for="ats in list2">
+                  <span class="shopping-span">
+                    {{ats.description}}
+                  </span>
+                </div>
+              </dd>
+            </dl>
+            <dl>
+              <dt>商家属性（可多选）</dt>
+              <dd>
+                <div class="market" v-for="dd in list3">
+                  <span class="market-span">
+                    {{dd.icon_name}}
+                  </span>
+                  <span>
+                    {{dd.name}}
+                  </span>
+                </div>
+              </dd>
+            </dl>
+          </div>
+          <div class="btn">
+            <sapn class="btn-clear">清空</sapn>
+            <span class="btn-q">确定</span>
+          </div>
         </div>
       </section>
-      <section class="shadow"></section>
     </div>
     <div class="from">
       <ul>
-        <li class="from-li" v-for="item in list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
-          <div class="from-left">         
-            <img class="from-img" :src="'https://fuss10.elemecdn.com/'+item.restaurant.image_path+'.'+item.restaurant.image_path.split('').slice(32,).join('')+'?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/'">
-          </div>
-          <div class="from-right">
-            <div class="introduce">
-              <span>{{item.restaurant.name}}</span>
-              <div class="right-star">
-                <span>*****</span>
-                <span>{{item.restaurant.rating}}</span>
-                <span>
-                  月售{{item.restaurant.recent_order_num}}单
-                </span>
-                <span class="from-Hummingbird">蜂鸟专送</span>
-              </div>
-              <div class="right-price">
-                <span>
-                  ￥{{item.restaurant.float_minimum_order_amount}}起送
-                </span>
-                <span>|</span>
-                <span>
-                  配送费￥{{item.restaurant.float_delivery_fee}}
-                </span>
-                <div class="distance">
-                  <span>1.36km</span>
+        <li class="from-li" v-for="item in list">
+          <router-link :to="{name:'Details', params:{fid: item.restaurant.id}}" class="router-link-active">
+            <div class="from-left">         
+              <img class="from-img" :src="'https://fuss10.elemecdn.com/'+item.restaurant.image_path+'.'+item.restaurant.image_path.split('').slice(32,).join('')+'?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/'">
+            </div>
+            <div class="from-right">
+              <div class="introduce">
+                <span>{{item.restaurant.name}}</span>
+                <div class="right-star">
+                  <span>*****</span>
+                  <span>{{item.restaurant.rating}}</span>
+                  <span>
+                    月售{{item.restaurant.recent_order_num}}单
+                  </span>
+                  <span class="from-Hummingbird">蜂鸟专送</span>
+                </div>
+                <div class="right-price">
+                  <span>
+                    ￥{{item.restaurant.float_minimum_order_amount}}起送
+                  </span>
                   <span>|</span>
-                  <span>24分钟</span>
+                  <span>
+                    配送费￥{{item.restaurant.float_delivery_fee}}
+                  </span>
+                  <div class="distance">
+                    <span>1.36km</span>
+                    <span>|</span>
+                    <span>24分钟</span>
+                  </div>
+                </div>
+                <div class="evaluate">
+                  <img class="evaluate-img" :src="'https://fuss10.elemecdn.com/'+item.restaurant.recommend.image_hash+'.png?imageMogr/format/webp/thumbnail/!60x60r/gravity/Center/crop/60x60/'">
+                  <span class="evaluate-span">
+                    {{item.restaurant.recommend.reason}}
+                  </span>
                 </div>
               </div>
-              <div class="evaluate">
-                <img class="evaluate-img" :src="'https://fuss10.elemecdn.com/'+item.restaurant.recommend.image_hash+'.png?imageMogr/format/webp/thumbnail/!60x60r/gravity/Center/crop/60x60/'">
-                <span class="evaluate-span">
-                  {{item.restaurant.recommend.reason}}
-                </span>
+              <div class="Discount">
+                <div class="reduce">
+                  <span class="reduce-first">
+                    {{item.restaurant.activities[0].icon_name}}
+                  </span>
+                  <span>
+                    {{item.restaurant.activities[0].tips}}
+                  </span>
+                  <span class="reduce-last">10个活动</span>
+                </div>
+                <div class="gift">
+                  <!-- <span class="gift-reduce">
+                    {{item.restaurant.activities[1].icon_name}}
+                  </span>
+                  <span class="full">
+                    {{item.restaurant.activities[1].tips}}
+                  </span> -->
+                </div>
               </div>
             </div>
-            <div class="Discount">
-              <div class="reduce">
-                <span class="reduce-first">
-                  {{item.restaurant.activities[0].icon_name}}
-                </span>
-                <span>
-                  {{item.restaurant.activities[0].tips}}
-                </span>
-                <span class="reduce-last">10个活动</span>
-              </div>
-              <div class="gift">
-                <!-- <span class="gift-reduce">
-                  {{item.restaurant.activities[1].icon_name}}
-                </span>
-                <span class="full">
-                  {{item.restaurant.activities[1].tips}}
-                </span> -->
-              </div>
-            </div>
-          </div>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -171,7 +177,9 @@ export default {
       list: [],
       list1: [],
       list2: [],
-      list3: []
+      list3: [],
+      display: false,
+      display1: false
     }
   },
   mounted () {
@@ -206,6 +214,14 @@ export default {
   //     })
   //   }
   // } 
+  methods: {
+    show: function() {
+      this.display = false;
+      }
+    },
+    hidden: function() {
+      this.display1 = false;
+    }
 }
 </script>
 
@@ -226,23 +242,47 @@ export default {
     z-index: 100;
     background: #fff;
   }
-  .ranking{
+  .screen-last{
     position: absolute;
+    content: '\0020';
+    right: .16rem;
+    top: .14rem;
+    width: 0;
+    height: 0;
+    border-left: .04rem solid transparent;
+    border-right: .04rem solid transparent;
+    border-top: .04rem solid #666;
+  }
+  .zuo{
     width: 100%;
-    top: .72rem;
+    height: 8rem;
+    position: absolute;
+    top: .7rem;
+    left: 0;
+    transition-duration: 0.5s;
+    background: rgba(0,0,0,.7);
+  }
+  .zuo1{
+    width: 100%;
+    height: 8rem;
+    position: absolute;
+    top: .7rem;
+    left: 0;
+    transition-duration: 0.5s;
+    background: rgba(0,0,0,.7);
+  }
+  .ranking{
+    width: 100%;
     padding-top: .06rem;
     padding-bottom: .06rem;
     font-size: .11rem;
-    background: #fff;
     visibility: visible;
     max-height: 1500%;
-    display: none;
-  }
-  .ranking ul{
     overflow: hidden;
     line-height: .35rem;
+    background: #fff;
   }
-  .ranking ul li{
+  .ranking li{
     margin-left: .1rem;
   }
   .ranking-img{
@@ -252,27 +292,15 @@ export default {
     margin-top: .08rem;
     display: none;
   }
-  .shadow{
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: .72rem;
-    bottom: 0;
-    z-index: -1;
-    background: rgba(0,0,0,.5);
-    display: none;
-  }
   .funnel{
     max-height: 1500%;
     position: absolute;
     left: 0;
     right: 0;
-    top: .72rem;
     border-top: 1px solid #ddd;
     background: #fff;
     z-index: 3;
     overflow: auto;
-    display: none;
   }
   .morefilter{
     overflow: auto;
@@ -418,6 +446,10 @@ export default {
     overflow: hidden;
     border-bottom: 1px solid #fbfbfb;
   }
+  .router-link-active{
+    position: absolute;
+    color: #666;
+  }
   .from-left{
     float: left;
   }
@@ -456,7 +488,7 @@ export default {
     margin-right: .1rem;
   }
   .evaluate{
-    margin-bottom: .07rem;
+    margin-bottom: .03rem;
   }
   .evaluate-img{
     width: .09rem;

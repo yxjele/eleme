@@ -9,8 +9,6 @@ import List from '@/components/list/List'
 import Details from '@/components/list/Details'
 
 
-
-
 Vue.use(Router)
 
 export default new Router({
@@ -37,18 +35,20 @@ export default new Router({
       component: Mine
     },
     {
+<<<<<<< HEAD
       path: '/forder',
       name: 'Forder',
       component: Forder
     },
     {
-      path:'/list:fid',
-      name:'List',
+      path: '/list',
+      name: 'List',
       component: List
     },
     {
-      path:'/details',
-      name:'Details',
+      path: '/details/:fid',
+      name: 'Details',
+>>>>>>> 3fd26947dc984c43d9d87376fe32f7dbebf8d46c
       component: Details
     }
   ]

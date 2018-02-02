@@ -19,15 +19,15 @@
       <!-- 轮播图 -->
       <mt-swipe class="swipe" :auto="8000">
             <mt-swipe-item>
-              <a href="#"  v-for="item in list" class="gooding" :key="item.id">
+              <router-link :to="{name:'List',params:{fid:item.id}}" v-for="item in list" class="gooding" :key="item.id">
                 <img :src="'http://fuss10.elemecdn.com/'+item.image_hash+'.jpeg?imageMogr/format/webp/thumbnail/!90x90r/gravity/Center/crop/90x90/'" alt="">
                <span>{{item.name}}</span>
-               </a>
+               </router-link>
             </mt-swipe-item>
              <mt-swipe-item>
-               <a href="#"  v-for="item in list2" class="gooding" :key="item.id">
+               <router-link :to="{name:'List',params:{fid:item.id}}" v-for="item in list2" class="gooding" :key="item.id">
                 <img :src="'http://fuss10.elemecdn.com/'+item.image_hash+'.jpeg?imageMogr/format/webp/thumbnail/!90x90r/gravity/Center/crop/90x90/'" alt="">
-                {{item.name}}</a>
+                {{item.name}}</router-link>
              </mt-swipe-item>
       </mt-swipe>
       <!-- 新用户专享图 -->

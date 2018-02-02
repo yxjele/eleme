@@ -41,7 +41,7 @@ export default new Router({
       component: Forder
     },
     {
-      path: '/list',
+      path: '/list/:fid',
       name: 'List',
       component: List
     },
